@@ -1,0 +1,67 @@
+version: "3.7"
+
+networks:
+  default:
+    name: ${PROJECT_NAME:-apiserver}-network
+    driver: bridge
+
+volumes:
+  dbdatadir:
+    name: ${PROJECT_NAME:-apiserver}-dbdatadir
+
+services:
+
+  web:
+    image: nginx:alpine
+    container_name: ${PROJECT_NAME:-apiserver}-webfront
+    volumes:
+       - ./app:/app
+       - ./docker/nginx/conf.d:/etc/nginx/conf.d
+    ports:
+       - ${HTTP_PORT:-8080}:80
+    networks:
+      - default
+    depends_on:
+      - php
+
+  php:
+    build: ./docker/php
+    container_name: ${PROJECT_NAME:-apiserver}-php
+    networks:
+      - default
+    volumes:
+      - ./app:/app
+    working_dir: /app
+    depends_on:
+      - db
+
+  db:
+    image: mysql
+    container_name: ${PROJECT_NAME:-apiserver}-db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD:-pass}
+      MYSQL_USER: ${DB_USER:-apiserver}
+      MYSQL_PASSWORD: ${DB_PASSWORD:-pass}
+      MYSQL_DATABASE: ${DB_NAME:-apiserver}
+    volumes:
+      - dbdatadir:/var/lib/mysql
+    networks:
+      - default
+
+  pma:
+    image: phpmyadmin/phpmyadmin
+    container_name: ${PROJECT_NAME:-apiserver}-pma
+    restart: always
+    environment:
+      PMA_HOST: db
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD:-pass}
+      MYSQL_USER: ${DB_USER:-apiserver}
+      MYSQL_PASSWORD: ${DB_PASSWORD:-pass}
+      MYSQL_DATABASE: ${DB_NAME:-apiserver}
+    ports:
+      - ${PMA_PORT:-8089}:80
+    networks:
+      - default
+    depends_on:
+      - db
