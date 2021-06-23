@@ -13,7 +13,7 @@ Découvrir API Platform qui permet de monter des apis rapidement, simplement et 
 ## Montage infrastructure
 
 Il suffit de se placer à la racine du projet et de monter l'infrastructure docker via docker-compose...
-Si vous désirez parametrer les mots de passe et port d'écoute, vous pouvez créer un .env à la racine du projet
+Si vous désirez parametrer les mots de passe et les ports d'écoute, vous pouvez créer un .env à la racine du projet
 
 ```bash
 $ cd apiserver
