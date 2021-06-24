@@ -63,4 +63,12 @@ Création d'un fichier fixtures pour générer des centaines de livres dans notr
 ## Intégration de Api Platform au projet Symfony existant
 
 Installation du paquet api (Api Platform).
-Annotation de l'entité Book pour créer une nouvelle ressource (au sens Api Platform). Ce qui a pour conséquence d'exposer automatiquement des webs services standardisés proposant une interface CRUD (creation, lecture, mise à jour, et suppression) pour manipuler nos livres.
+Annotation de l'entité Book pour créer une nouvelle ressource (au sens Api Platform).
+Ce qui a pour conséquence:
+- d'exposer automatiquement des webs services standardisés proposant une interface CRUD (creation, lecture, mise à jour, et suppression) pour manipuler nos livres.
+- de mettre à jour la documentation de l'api (outil Swagger) que nous sommes en train de construire.
+
+
+## Elargissement du jeu de donnée et complexification du schéma de la base de données
+
+On ajoute un champ auteur et des tags aux livres.
