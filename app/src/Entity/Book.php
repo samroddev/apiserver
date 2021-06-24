@@ -2,12 +2,20 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\BookRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass=BookRepository::class)
  * @ORM\HasLifecycleCallbacks()
+ * @ApiResource(
+ *  shortName="book",
+ *  description="Livres existant en base de données.",
+ *  attributes={
+ *      "pagination_items_per_page"=10
+ *  }
+ * )
  */
 class Book
 {

@@ -44,6 +44,23 @@ Vous pouvez utiliser dès à présent l'api et expérimenter à votre convenance
 
 # Historique
 
-- Mise en place de l'infrastructure docker (service web frontal, service applicatif (PHP), service de données, service Phpmyadmin,...)
-- Mise en place du framework Symfony v5.3, version stable actuelle.
-- Création de quelques entités.
+## Mise en place de l'infrastructure docker (service web frontal, service applicatif (PHP), service de données, service Phpmyadmin,...)
+
+Pas de commentaires particuliers, j'ai adapté l'infrastructure Gesip aux besoins de ce serveur d'api...
+
+
+## Mise en place du framework Symfony v5.3, version stable actuelle.
+
+La encore, pas de nouveautés, installation de Symfony via composer ou l'outils symfony décrit dans la documentation officielle.
+
+
+## Création de quelques entités et de leur fixtures associées (livres).
+
+Création d'une entité Book représentant un livre via la commande make:entity de Symfony, puis génération du fichier correspondant.
+Création d'un fichier fixtures pour générer des centaines de livres dans notre base de données à l'aide du paquet Faker.
+
+
+## Intégration de Api Platform au projet Symfony existant
+
+Installation du paquet api (Api Platform).
+Annotation de l'entité Book pour créer une nouvelle ressource (au sens Api Platform). Ce qui a pour conséquence d'exposer automatiquement des webs services standardisés proposant une interface CRUD (creation, lecture, mise à jour, et suppression) pour manipuler nos livres.
