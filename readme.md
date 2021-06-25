@@ -20,8 +20,6 @@ $ cd apiserver
 $ docker-compose up -d
 ```
 
-*Soyez patient... Docker doit télécharger les images qu'il ne connait pas, et le premier démarrage du serveur Mysql peut s'éterniser...*
-
 ## Mise en place de la base de données
 
 Si vous venez de construire l'infrastructure pour la première fois, le service de données dispose de son propre volume, mais la base de données est vide (pas de structure, pas de données).
@@ -39,14 +37,17 @@ $ docker exec apiserver-php php bin/console doctrine:fixtures:load
 ## Enjoy it!
 
 Vous pouvez utiliser dès à présent l'api et expérimenter à votre convenance... :-) 
-
+Visitez:
+- http://localhost:8080/api : pour accéder à la documentation Swagger de l'api
+- http://localhost:8089 : pour accéder à PhpMyAdmin et voir la base de données et sa structure.
+- Et surtout, utilisez postman, insomnia, ou tout autre client Rest pour tester l'api !
 
 
 # Historique
 
 ## Mise en place de l'infrastructure docker (service web frontal, service applicatif (PHP), service de données, service Phpmyadmin,...)
 
-Pas de commentaires particuliers, j'ai adapté l'infrastructure Gesip aux besoins de ce serveur d'api...
+Pas de commentaires particuliers, j'ai adapté une infrastructure Docker existante aux besoins de ce serveur d'api...
 
 
 ## Mise en place du framework Symfony v5.3, version stable actuelle.
