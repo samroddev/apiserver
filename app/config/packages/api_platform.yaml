@@ -1,7 +1,45 @@
 api_platform:
-    mapping:
-        paths: ['%kernel.project_dir%/src/Entity']
-    patch_formats:
-        json: ['application/merge-patch+json']
+
+    title: 'Ma première API!'
+    description: 'De livres, des auteurs, et des tags !'
+    version: '0.0.0'
+    enable_swagger_ui: true        # activation de la documentation swager
+    enable_swagger: true   
+
+    # Configuration de Swagger
     swagger:
         versions: [3]
+
+    # formats acceptés et pris en charge par l'api
+    formats:
+        jsonld: # Active le format .json classique avec des metas data supplémentaires (pratiques pour implémenter la pagination coté client)
+            mime_types:
+                - application/ld+json
+        json: # Active le format .json classique
+            mime_types:
+                - application/json
+        html: # Active la documentation Swagger en ligne (visitez /api)
+            mime_types:
+                - text/html
+
+    # Cela permet de prendre en charge la méthode PATCH qui permet de mettre à jour partiellement un objet
+    patch_formats:
+        json: ['application/merge-patch+json']
+
+    # Défini quelles entités sont exposées par l'api et comment
+    mapping:
+        paths:
+            - '%kernel.project_dir%/src/Entity'             # Api platform exposera les entités comportant des annotations.
+            - '%kernel.project_dir%/config/api_platform'    # Il est possible de mapper des entités à partir d'un fichier yaml
+
+    defaults:
+        pagination_enabled: true                        # Par defaut la pagination est activée.
+        pagination_client_items_per_page: true          # Le client pourra choisir le nombre d'enregistrement par page      
+        enabled_parameter_name: 'pagination'            # Le client devra utiliser le paramètre "pagination" pour activer la pagination
+        pagination_items_per_page: 25                   # Par défault, si rien est précisé, le nombre d'enregistrements par page est de 25.
+        pagination_maximum_items_per_page: 100          # Par défault, il ne sera pas possible de demander plus de 100 enregistrements par page
+
+    collection:
+        pagination:
+            items_per_page_parameter_name: recordsPerPage # Le client devra utiliser ce paramètre pour définir le nombre d'enregistrements retournés par page.
+    

@@ -1,0 +1,10 @@
+resources:
+
+  App\Entity\Book:
+    shortName: 'book'
+    description: 'Livre existant en base de données.'
+    attributes:
+        pagination_items_per_page: 10
+        order:
+          title: asc
+        
