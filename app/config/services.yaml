@@ -23,3 +23,24 @@ services:
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
+
+    # Service de filtres de recherche de livres
+    book.search_filter:
+        parent: 'api_platform.doctrine.orm.search_filter'
+        arguments: [ { id: 'exact', title: 'partial', isbn: 'exact', inSell: 'exact', tags: 'exact' } ]
+        tags:  [ 'api_platform.filter' ]
+        autowire: false
+        autoconfigure: false
+        public: false
+
+    # Service de tri sur les livres
+    book.order_filter:
+        parent: 'api_platform.doctrine.orm.order_filter'
+        arguments:
+            $properties: { id: ~, title: ~, author.name: ~, pagesCount: ~, isbn: ~, inSell: ~ }
+            $orderParameterName: order
+        tags:  [ 'api_platform.filter' ]
+        autowire: false
+        autoconfigure: false
+        public: false
+    

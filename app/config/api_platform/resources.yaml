@@ -4,7 +4,11 @@ resources:
     shortName: 'book'
     description: 'Livre existant en base de données.'
     attributes:
-        pagination_items_per_page: 10
-        order:
-          title: asc
-        
+      pagination_items_per_page: 10
+      order:
+        title: asc
+    collectionOperations:
+      get:
+        filters: ['book.search_filter', 'book.order_filter']
+
+
