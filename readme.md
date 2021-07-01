@@ -20,6 +20,16 @@ $ cd apiserver
 $ docker-compose up -d
 ```
 
+## Installation des dépendances
+
+Avant de fonctionner, le projet nécessite l'installation de librairies tiers, à commencer par Symfony.
+Composer va faire cela pour nous !
+
+```bash
+$ docker exec apiserver-php composer install
+```
+
+
 ## Mise en place de la base de données
 
 Si vous venez de construire l'infrastructure pour la première fois, le service de données dispose de son propre volume, mais la base de données est vide (pas de structure, pas de données).
@@ -29,9 +39,19 @@ Nous devons donc exécuter l'intégralité des migrations pour construire le sch
 $ docker exec apiserver-php php bin/console doctrine:migration:migrate -n
 ```
 
-Vous pouvez ensuite créer un jeu de données de test via les fixtures...
+Vous pouvez ensuite créer un jeu de données de test via les fixtures (cela créera des livres, des tags, des auteurs, ...).
+(Attention, cette commande est lancée en mode non-interactif, et affecte de facon irréversible le contenu de la base de données !)
 ```bash
-$ docker exec apiserver-php php bin/console doctrine:fixtures:load
+$ docker exec apiserver-php php bin/console doctrine:fixtures:load - n
+```
+
+## Configuration spécifique
+
+Si vous exposez votre api sur un serveur et que vous faites tourner les clients qui consomment votre api sur d'autres postes, vous pouvez rencontrer des problemes de CORS.
+Conformément à la documentation Symfony (https://symfony.com/doc/current/the-fast-track/en/26-api.html#configuring-cors), vous devriez adapter le paramètre CORS_ALLOW_ORIGIN via les fichiers d'environnement de Symfony.
+Personnelement, pour mes développements, j'ai simplement créé un fichier app/.env.local contenant:
+```
+CORS_ALLOW_ORIGIN='*'
 ```
 
 ## Enjoy it!
