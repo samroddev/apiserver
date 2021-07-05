@@ -57,12 +57,12 @@ class Book
     private $createdAt;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Author::class)
+     * @ORM\ManyToOne(targetEntity=Author::class, cascade={"persist"})
      */
     private $author;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Tag::class)
+     * @ORM\ManyToMany(targetEntity=Tag::class, cascade={"persist"})
      */
     private $tags;
 

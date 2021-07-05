@@ -10,5 +10,7 @@ resources:
     collectionOperations:
       get:
         filters: ['book.search_filter', 'book.order_filter']
-
+      post:
+        path: '/books'
+        status: 301
 
