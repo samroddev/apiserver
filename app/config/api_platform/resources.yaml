@@ -1,16 +1,25 @@
 resources:
 
+  # Expose les entités de type Book
   App\Entity\Book:
+
     shortName: 'book'
-    description: 'Livre existant en base de données.'
+    description: 'Livres existants en base de données.'
+
+    # Définition de la pagination et de l'ordre par défaut.
     attributes:
       pagination_items_per_page: 10
       order:
         title: asc
+      normalization_context:
+        skip_null_values: false
+
+    # Enumération et configuration des opérations autorisées
     collectionOperations:
       get:
         filters: ['book.search_filter', 'book.order_filter']
       post:
-        path: '/books'
-        status: 301
+      put:
+      patch:
+      delete:
 

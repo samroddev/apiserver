@@ -27,7 +27,7 @@ services:
     # Service de filtres de recherche de livres
     book.search_filter:
         parent: 'api_platform.doctrine.orm.search_filter'
-        arguments: [ { id: 'exact', title: 'partial', author.name: 'partial', isbn: 'partial', inSell: 'exact', tags: 'exact' } ]
+        arguments: [ { id: 'exact', title: 'partial', author.name: 'partial', isbn: 'partial', inSell: 'exact', tags.label: 'exact' } ]
         tags:  [ 'api_platform.filter' ]
         autowire: false
         autoconfigure: false
