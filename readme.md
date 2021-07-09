@@ -45,6 +45,23 @@ Vous pouvez ensuite créer un jeu de données de test via les fixtures (cela cr�
 $ docker exec apiserver-php php bin/console doctrine:fixtures:load - n
 ```
 
+## Installation des clefs pour l'authentification JWT
+
+Pour fonctionner le bundle LexikJWTAuthenticationBundle a besoin d'une clef privée et une clef publique.
+Vous pouvez générer ces dernières en utilisant la commande suivante:
+
+```bash
+$ docker exec apiserver-php php bin/console lexik:jwt:generate-keypair
+```
+
+Passé cette étape, vous devriez être en mesure de récupérer un token. Vous pouvez tenter de vous connecter avec le compte "admin" via curl comme ceci:
+Pour info, le compte "admin" est défini en dur dans le fichier de config de Symfony config/security dans la section providers:users_in_memory:memory:users. Vous pouvez évidemment rajouter d'autres utilisateurs ou d'autres providers...
+
+```bash
+$ curl -X POST -H "Content-Type: application/json" http://localhost:8080/api/login_check -d '{"username":"admin","password":"admin"}'
+```
+
+
 ## Configuration spécifique
 
 Si vous exposez votre api sur un serveur et que vous faites tourner les clients qui consomment votre api sur d'autres postes, vous pouvez rencontrer des problemes de CORS.
@@ -93,3 +110,8 @@ Ce qui a pour conséquence:
 ## Elargissement du jeu de donnée et complexification du schéma de la base de données
 
 On ajoute un champ auteur et des tags aux livres.
+
+
+## Mise en place de la sécurité (droits d'accès + authentification)
+
+Utilisation du Bundle LexikJWTAuthenticationBundle

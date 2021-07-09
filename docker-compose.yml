@@ -8,6 +8,8 @@ networks:
 volumes:
   dbdatadir:
     name: ${PROJECT_NAME:-apiserver}-dbdatadir
+  jwtkeysdir:
+    name: ${PROJECT_NAME:-apiserver}-jwtkeysdir
 
 services:
 
@@ -31,6 +33,7 @@ services:
       - default
     volumes:
       - ./app:/app
+      - jwtkeysdir:/app/config/jwt
     working_dir: /app
     depends_on:
       - db

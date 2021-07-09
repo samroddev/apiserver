@@ -8,7 +8,7 @@ resources:
 
     attributes:
       # Défini la sécurité globale sur cette entité
-      #security: 'is_granted("ROLE_ADMIN")'
+      security: 'is_granted("ROLE_ADMIN")'
       # Paramètrage du contenu renvoyé (utilisation du contexte show_book pour sérialiser, les champs ayant une valeur nulle sont quand meme affichés).
       normalization_context:
         groups: ['show_book']
@@ -22,7 +22,7 @@ resources:
     collectionOperations:
       # Autorise meme les utilisateurs non-authentifiés à "lire" des livres et défini les possibilités de filtrage et de tri
       get:
-        #security: 'is_granted("IS_AUTHENTICATED_ANONYMOUSLY")'
+        security: 'is_granted("IS_AUTHENTICATED_ANONYMOUSLY")'
         filters: ['book.search_filter', 'book.order_filter']
       # Active la création de nouveau livre (la méthode n'est pas activée par défaut)
       post: ~

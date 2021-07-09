@@ -8,8 +8,13 @@ api_platform:
     # Activation et configuration de la documentation swager
     enable_swagger_ui: true
     enable_swagger: true
+    show_webby: false
     swagger:
         versions: [3]
+        api_keys:
+            apiKey:
+                name: Authorization
+                type: header
 
     # formats acceptés et pris en charge par l'api
     formats:
