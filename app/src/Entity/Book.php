@@ -7,6 +7,7 @@ use App\Repository\BookRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=BookRepository::class)
@@ -18,36 +19,43 @@ class Book
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"show_book"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=128)
+     * @Groups({"show_book"})
      */
     private $title;
 
     /**
      * @ORM\Column(type="text")
+     * @Groups({"show_book"})
      */
     private $resume;
 
     /**
      * @ORM\Column(type="smallint")
+     * @Groups({"show_book"})
      */
     private $pagesCount;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
+     * @Groups({"show_book"})
      */
     private $publishedAt;
 
     /**
      * @ORM\Column(type="string", length=32, nullable=true)
+     * @Groups({"show_book"})
      */
     private $isbn;
 
     /**
      * @ORM\Column(type="boolean")
+     * @Groups({"show_book"})
      */
     private $inSell;
 
@@ -58,11 +66,13 @@ class Book
 
     /**
      * @ORM\ManyToOne(targetEntity=Author::class, cascade={"persist"})
+     * @Groups({"show_book"})
      */
     private $author;
 
     /**
      * @ORM\ManyToMany(targetEntity=Tag::class, cascade={"persist"})
+     * @Groups({"show_book"})
      */
     private $tags;
 

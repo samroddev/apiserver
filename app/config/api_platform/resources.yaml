@@ -4,22 +4,26 @@ resources:
   App\Entity\Book:
 
     shortName: 'book'
-    description: 'Livres existants en base de données.'
+    description: 'Représente un livre attaché à 0 ou 1 Author et à 0 à n Tags.'
 
-    # Définition de la pagination et de l'ordre par défaut.
     attributes:
+      # Défini la sécurité globale sur cette entité
+      #security: 'is_granted("ROLE_ADMIN")'
+      # Paramètrage du contenu renvoyé (utilisation du contexte show_book pour sérialiser, les champs ayant une valeur nulle sont quand meme affichés).
+      normalization_context:
+        groups: ['show_book']
+        skip_null_values: false
+      # Définition de la pagination et de l'ordre par défaut.
       pagination_items_per_page: 10
       order:
         title: asc
-      normalization_context:
-        skip_null_values: false
 
     # Enumération et configuration des opérations autorisées
     collectionOperations:
+      # Autorise meme les utilisateurs non-authentifiés à "lire" des livres et défini les possibilités de filtrage et de tri
       get:
+        #security: 'is_granted("IS_AUTHENTICATED_ANONYMOUSLY")'
         filters: ['book.search_filter', 'book.order_filter']
-      post:
-      put:
-      patch:
-      delete:
+      # Active la création de nouveau livre (la méthode n'est pas activée par défaut)
+      post: ~
 
