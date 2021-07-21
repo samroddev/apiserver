@@ -10,7 +10,7 @@ security:
         users_in_memory:
             memory:
                 users:
-                    admin: { password: 'admin', roles: ['ROLE_ADMIN'] }
+                    admin@local: { password: 'admin', roles: ['ROLE_ADMIN'] }
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
