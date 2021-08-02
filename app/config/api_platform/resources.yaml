@@ -7,7 +7,7 @@ resources:
     description: 'Représente un livre attaché à 0 ou 1 Author et à 0 à n Tags.'
 
     attributes:
-      # Défini la sécurité globale sur cette entité
+      # Défini la sécurité globale sur cette entité (sauf mention contraire seuls les admins pourront lire, créer, modifier, supprimer ce type de ressources)
       security: 'is_granted("ROLE_ADMIN")'
       # Paramètrage du contenu renvoyé (utilisation du contexte show_book pour sérialiser, les champs ayant une valeur nulle sont quand meme affichés).
       normalization_context:
@@ -20,9 +20,9 @@ resources:
 
     # Enumération et configuration des opérations autorisées
     collectionOperations:
-      # Autorise meme les utilisateurs non-authentifiés à "lire" des livres et défini les possibilités de filtrage et de tri
+      # Autorise uniquement les utilisateurs authentifiés à "lire" des livres et défini les possibilités de filtrage et de tri
       get:
-        security: 'is_granted("IS_AUTHENTICATED_ANONYMOUSLY")'
+        security: 'is_granted("ROLE_USER")'
         filters: ['book.search_filter', 'book.order_filter']
       # Active la création de nouveau livre (la méthode n'est pas activée par défaut)
       post: ~

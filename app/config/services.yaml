@@ -43,4 +43,9 @@ services:
         autowire: false
         autoconfigure: false
         public: false
-    
+
+    # Réécrit la réponse lors de l'envoi du token
+    app.listener.authentication_success_response:
+        class: App\Service\AuthentificationListener
+        tags:
+            - { name: kernel.event_listener, event: lexik_jwt_authentication.on_authentication_success, method: onAuthenticationSuccessResponse }
