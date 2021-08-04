@@ -44,6 +44,26 @@ services:
         autoconfigure: false
         public: false
 
+    # Service de filtres de recherche d'auteurs
+    author.search_filter:
+        parent: 'api_platform.doctrine.orm.search_filter'
+        arguments: [ { id: 'exact', name: 'partial' } ]
+        tags:  [ 'api_platform.filter' ]
+        autowire: false
+        autoconfigure: false
+        public: false
+
+    # Service de tri sur les auteurs
+    author.order_filter:
+        parent: 'api_platform.doctrine.orm.order_filter'
+        arguments:
+            $properties: { name: ~, birthDate: ~ }
+            $orderParameterName: order
+        tags:  [ 'api_platform.filter' ]
+        autowire: false
+        autoconfigure: false
+        public: false
+
     # Réécrit la réponse lors de l'envoi du token
     app.listener.authentication_success_response:
         class: App\Service\AuthentificationListener
